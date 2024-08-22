@@ -1,40 +1,63 @@
 <x-layout>
     <div class="p-4 sm:ml-64 ">
+        {{-- @if ($errors->any())
+        <div class="mt-2 text-sm text-red-600 dark:text-red-500">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif --}}
         <form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
             @csrf
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <label for="jenis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Jenis</label>
-                    <input type="text" id="jenis" name="jenis"
+                    <input type="text" id="jenis" name="jenis" value="{{ old('jenis') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Honda Jazz" required />
+                        placeholder="Honda Jazz"  />
+                   @error('jenis')
+        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+    @enderror
                 </div>
                 <div>
                     <label for="plat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plat</label>
-                    <input type="text" id="plat" name="plat"
+                    <input type="text" id="plat" name="plat" value="{{ old('plat') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="DA 3333 VS" required />
+                        placeholder="DA 3333 VS"  />
+                        @error('plat')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    @enderror
+
                 </div>
                 <div>
                     <label for="penumpang" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah Penumpang</label>
-                    <input type="number" id="penumpang" name="penumpang"
+                    <input type="number" id="penumpang" name="penumpang" value="{{ old('penumpang') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="5 Orang" min="0" max="10" required />
+                        placeholder="5 Orang" min="0" max="10"  />
+                        @error('penumpang')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <label for="harga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga Rp.</label>
-                    <input type="number" id="harga" name="harga"
+                    <input type="number" id="harga" name="harga"  value="{{ old('penumpang') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Rp. 150.000" min="0" max="9999999" required />
+                        placeholder="Rp. 150.000" min="0" max="9999999"  />
+                        @error('harga')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
             <div class="">
                 <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Gambar Mobil</label>
-                <input type="file" id="file" name="file"
+                <input type="file" id="file" name="file" value="{{ old('file') }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Honda Jazz" required onchange="previewImage(event)"/>
+                    placeholder="Honda Jazz"  onchange="previewImage(event)"/>
+                    @error('file')
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
                 <!-- Add an img element to display the preview -->
                 <img id="imagePreview" style="display:none; margin-top: 10px; max-width: 100%;" />
             </div>
@@ -55,4 +78,6 @@
             }
         }
     </script>
+
+    
 </x-layout>

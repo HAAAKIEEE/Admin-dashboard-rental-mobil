@@ -35,7 +35,7 @@
                     Gambar Mobil</label>
                 <input type="file" id="file" name="file"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Honda Jazz" required onchange="previewImage(event)"/>
+                    placeholder="Honda Jazz"  onchange="previewImage(event)"/>
                 <!-- Add an img element to display the preview -->
                 <img id="imagePreview" style="display:none; margin-top: 10px; max-width: 100%;" />
             </div>

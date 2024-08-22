@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [KendaraanController::class, 'index'])->name('dashboard');
+Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('dashboard');
+
 Route::get('/create', [KendaraanController::class, 'create']);
 Route::post('/store', [KendaraanController::class, 'store'])->name('store');
 Route::delete('/{kendaraan}', [KendaraanController::class, 'destroy']) ;

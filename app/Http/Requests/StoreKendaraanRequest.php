@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Plat;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreKendaraanRequest extends FormRequest
@@ -17,13 +18,11 @@ class StoreKendaraanRequest extends FormRequest
     public function rules()
     {
         return [
-            'jenis' => 'required|string|max:255',
-            'plat' => 'required|string|max:255',
+            'jenis' =>['required','string','max:255'] ,
+            'plat' => new Plat, // Custom rule handles required, string, and max:255
             'penumpang' => 'required|integer|max:10',
             'harga' => 'required|integer|max:9999999',
-             'file' => 'required|file'
-
-
+            'file' => 'required|file',
         ];
     }
 }

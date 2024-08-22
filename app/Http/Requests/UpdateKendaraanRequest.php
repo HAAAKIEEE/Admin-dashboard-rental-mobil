@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Plat;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateKendaraanRequest extends FormRequest
@@ -23,9 +24,10 @@ class UpdateKendaraanRequest extends FormRequest
     {
         return [
             'jenis' => 'required|string|max:255',
-            'plat' => 'required|string|max:255',
+            'plat' => new Plat,
             'penumpang' => 'required|integer|max:10',
             'harga' => 'required|integer|max:9999999',
+            'file' => 'required|file'
         ];
     }
 }
