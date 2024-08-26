@@ -33,7 +33,7 @@ class Plat implements ValidationRule
     }
 
     // Regular expression to match the format DA 1234 ABC
-    if (!preg_match('/^[A-Za-z]{1,2} \d{4} [A-Za-z]{1,3}$/', $value)) {
+    if (!preg_match('/^[A-Za-z]{1,2} \d{1,4} [A-Za-z]{1,3}$/', $value)) {
         $fail('The :attribute must be in the format DA 1234 ABC.');
     }
     }

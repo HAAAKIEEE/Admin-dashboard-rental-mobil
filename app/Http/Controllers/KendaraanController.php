@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Kendaraan;
 use App\Http\Requests\StoreKendaraanRequest;
 use App\Http\Requests\UpdateKendaraanRequest;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 class KendaraanController extends Controller
 {
     /**
@@ -14,7 +15,8 @@ class KendaraanController extends Controller
     public function index()
     {
         return view('welcome', [
-            'kendaraans' => Kendaraan::latest()->get()
+            'kendaraans' => Kendaraan::latest()->paginate(3),
+            // 'kendaraans' => DB::table('kendaraans')->paginate(3)
         ]);
     }
 
@@ -63,7 +65,7 @@ class KendaraanController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Up.pubdate the specified resource in storage.
      */
     public function update(UpdateKendaraanRequest $request, Kendaraan $kendaraan)
     {

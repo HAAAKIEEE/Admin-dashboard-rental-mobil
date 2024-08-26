@@ -13,4 +13,8 @@ class Kendaraan extends Model
     protected $fillable = [
         'jenis', 'plat', 'penumpang', 'harga','file'
     ];
+    public function scopeLatestFirst($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
 }
