@@ -1,17 +1,5 @@
 <x-layout>
 
-    <div class="p-4 sm:ml-64 flex justify-between">
-
-        <div class="bg-white flex items-center w-60 h-36 mx-1 bg-gray-100 p-4 drop-shadow-xl rounded-lg">
-            <div class="flex-1 justify-center text-center">
-                <h2 class="text-xl font-medium">Jumlah Kendaraan</h2>
-                <h1 class="text-lg font-bold">{{$kendaraans->total()}}</h1>
-            </div>
-
-        </div>
-
-
-    </div>
 
     <div class="p-4 sm:ml-64 ">
         @if (session('success'))
@@ -29,43 +17,29 @@
         @endif
 
 
-        @if(request()->is('kendaraan'))
-        <a href="/create"
+        <a href="{{route('products.create')}}"
             class="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add
-            Kendaraan</a>
-        @endif
+            Products</a>
+      
 
 
-
-        <form action="{{ route('dashboard') }}" method="GET" class="mt-5 flex items-center space-x-2">
-            <input type="text" name="search" 
-                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                   placeholder="Search" 
-                   value="{{ request()->get('search') }}" />
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Submit
-            </button>
-        </form>
-        
-        
-        {{-- <div class="mt-4">{{ $kendaraans->links('pagination::simple-tailwind') }}</div> --}}
         <table class=" mt-5 drop-shadow-xl w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
             <thead class="font-medium text-xs text-blue-500 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3 ">
-                        Jenis
+                        Name
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Plat
+                        Description
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Penumpang
+                        Price
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Harga/jam
+                        Stok
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        gambar
+                        Image
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Action
@@ -74,30 +48,30 @@
             </thead>
             <tbody>
 
-                @foreach ($kendaraans as $kendaraan)
+                @foreach ($products as $product)
 
                 <tr
                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
-                        {{$kendaraan->jenis}}
+                        {{$product->name}}
                     </th>
                     <td class="px-6 py-4">
-                        <a href="/"> {{$kendaraan->plat}}</a>
+                      {{$product->description}}
                     </td>
                     <td class="px-6 py-4">
-                        {{$kendaraan->penumpang}}
+                        Rp. {{$product->price}}
                     </td>
                     <td class="px-6 py-4">
-                        Rp. {{$kendaraan->harga}}
+                        {{$product->stock}}
                     </td>
                     <td class="px-6 py-4">
-                        <img src="{{ Storage::url($kendaraan->file) }}" alt="{{ $kendaraan->file }}"
+                        <img src="{{ Storage::url($product->image) }}" alt="{{ $product->image }}"
                             style="width: 100px; height: auto;">
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                            {{-- <form action="/{{$kendaraan->id}}" method="POST" onsubmit="return confirmDelete()">
+                            <form action="/{{$product->id}}" method="POST" onsubmit="return confirmDelete()">
                                 @method('delete')
                                 @csrf
                                 <button type="submit"
@@ -105,34 +79,23 @@
                                     Hapus
                                 </button>
                             </form>
-                            <a href="/{{$kendaraan->id}}/edit"
+                            <a href="/{{$product->id}}/edit"
                                 class="text-blue-500 bg-white border-2 border-blue-600 focus:outline-none hover:bg-blue-600 hover:text-white focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                                 Edit
-                            </a> --}}
+                            </a>
                             <!-- Modal Toggle Button -->
-                            <div class="flex justify-center m-5">
-                                <button
-                                    class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                    type="button" data-id="{{ $kendaraan->id }}" data-jenis="{{ $kendaraan->jenis }}"
-                                    data-plat="{{ $kendaraan->plat }}" data-penumpang="{{ $kendaraan->penumpang }}"
-                                    data-harga="{{ $kendaraan->harga }}"
-                                    data-file="{{ Storage::url($kendaraan->file) }}" id="readProductButton">
-                                    Lihat Detail
-                                </button>
-                            </div>
+                            
                         </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-
-
-        <div class="mt-4">{{ $kendaraans->links('pagination::tailwind') }}</div>
+        
 
     </div>
     <!-- Main Modal -->
-    <div id="readProductModal" tabindex="-1" aria-hidden="true"
+    {{-- <div id="readProductModal" tabindex="-1" aria-hidden="true"
         class="hidden flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  justify-center items-center w-full md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-xl h-full md:h-auto">
             <!-- Modal Content -->
@@ -214,52 +177,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <script>
-        function confirmDelete() {
-        return confirm('Apakah Anda yakin ingin menghapus data ini?');
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        // Menampilkan modal dengan data
-        document.querySelectorAll('#readProductButton').forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = document.getElementById('readProductModal');
-                
-                // Ambil data dari atribut data-*
-                const id = this.getAttribute('data-id');
-                const jenis = this.getAttribute('data-jenis');
-                const harga = this.getAttribute('data-harga');
-                const plat = this.getAttribute('data-plat');
-                const penumpang = this.getAttribute('data-penumpang');
-                const file = this.getAttribute('data-file');
-
-                // Update konten modal
-                document.getElementById('modalJenis').textContent = jenis;
-                document.getElementById('modalHarga').textContent = 'Rp. ' + harga;
-                document.getElementById('modalPlat').textContent = plat;
-                document.getElementById('modalPenumpang').textContent = penumpang;
-                document.getElementById('modalImage').src = file;
-
-                 // Update URL tombol edit di modal
-                 const editButton = document.getElementById('modalEditButton');
-                 editButton.href = `/${id}/edit`;
-        //    Delete data 
-        const deleteButton = document.getElementById('modalDeleteButton')
-        deleteButton.action = `/${id}`;
-                // Tampilkan modal
-                modal.classList.remove('hidden');
-            });
-        });
-
-        // Menutup modal
-        document.getElementById('closeModalButton').addEventListener('click', function() {
-            document.getElementById('readProductModal').classList.add('hidden');
-        });
-    });
-    </script>
-
+    </div> --}}
 
 
 </x-layout>

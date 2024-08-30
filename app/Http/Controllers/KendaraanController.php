@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kendaraan;
 use App\Http\Requests\StoreKendaraanRequest;
 use App\Http\Requests\UpdateKendaraanRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 class KendaraanController extends Controller
@@ -14,8 +15,18 @@ class KendaraanController extends Controller
      */
     public function index()
     {
+        $search = request()->query('search');
+    
+        $kendaraans = Kendaraan::where('jenis', 'LIKE', "%{$search}%")
+                            ->orWhere('plat', 'LIKE', "%{$search}%")
+                            ->orWhere('penumpang', 'LIKE', "%{$search}%")
+                            ->orWhere('harga', 'LIKE', "%{$search}%")
+                            ->paginate(3);
+    
+        // return view('kendaraan.index', compact('kendaraans'));
         return view('welcome', [
-            'kendaraans' => Kendaraan::latest()->paginate(3),
+            // 'kendaraans' => Kendaraan::latest()->paginate(3),
+            'kendaraans' =>$kendaraans,
             // 'kendaraans' => DB::table('kendaraans')->paginate(3)
         ]);
     }
@@ -52,6 +63,11 @@ class KendaraanController extends Controller
     public function show(Kendaraan $kendaraan)
     {
         //
+    }
+    
+    public function search(Request $request)
+    {
+       
     }
 
     /**
