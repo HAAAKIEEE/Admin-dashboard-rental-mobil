@@ -1,5 +1,5 @@
 <x-layout>
-
+    
     <div class="p-4 sm:ml-64 flex justify-between">
 
         <div class="bg-white flex items-center w-60 h-36 mx-1 bg-gray-100 p-4 drop-shadow-xl rounded-lg">
