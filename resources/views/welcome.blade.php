@@ -28,12 +28,13 @@
         </script>
         @endif
 
-
+@role('admin')
         @if(request()->is('kendaraan'))
         <a href="/create"
             class="mb-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add
             Kendaraan</a>
         @endif
+@endrole
 
 
 
@@ -110,9 +111,10 @@
                                 Edit
                             </a> --}}
                             <!-- Modal Toggle Button -->
+                           @role('admin')
                             <div class="flex justify-center m-5">
                                 <button
-                                    class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                     type="button" data-id="{{ $kendaraan->id }}" data-jenis="{{ $kendaraan->jenis }}"
                                     data-plat="{{ $kendaraan->plat }}" data-penumpang="{{ $kendaraan->penumpang }}"
                                     data-harga="{{ $kendaraan->harga }}"
@@ -120,6 +122,7 @@
                                     Lihat Detail
                                 </button>
                             </div>
+                            @endrole
                         </div>
                     </td>
                 </tr>
@@ -138,7 +141,7 @@
             <!-- Modal Content -->
             <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                 <!-- Modal Header -->
-                <div class="flex justify-end mb-3">
+                {{-- <div class="flex justify-end mb-3">
                     <button type="button" id="closeModalButton"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -149,16 +152,29 @@
                         </svg>
                         <span class="sr-only">Close modal</span>
                     </button>
-                </div>
+                </div> --}}
+                
                 <div class="flex justify-between mb-4 rounded-t sm:mb-5">
                     <div class="text-lg text-gray-900 md:text-xl dark:text-white">
                         <img id="modalImage" src="" alt="">
-
+                        <div class="flex justify-end mb-3">
+                            <button type="button" id="closeModalButton"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white">
+                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
                         <h3 id="modalJenis" class="font-semibold"></h3>
                         <p id="modalHarga" class="font-bold"></p>
                     </div>
 
                 </div>
+                
                 <p>Detail</p>
                 <dl>
                     <div class="flex items-center mb-2">
@@ -176,13 +192,12 @@
                         <dd id="modalHarga" class="font-light text-gray-500 dark:text-gray-400">Rp. 100.000</dd>
                     </div>
                 </dl>
-
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-3 sm:space-x-4">
 
                         <!-- Edit Button -->
                         <a id="modalEditButton" href="#"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                             <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
@@ -209,6 +224,7 @@
                             Hapus
                         </button>
                     </form>
+                
 
 
                 </div>

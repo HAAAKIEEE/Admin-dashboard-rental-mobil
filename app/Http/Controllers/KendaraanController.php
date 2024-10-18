@@ -7,6 +7,7 @@ use App\Http\Requests\StoreKendaraanRequest;
 use App\Http\Requests\UpdateKendaraanRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 class KendaraanController extends Controller
 {
@@ -100,6 +101,7 @@ class KendaraanController extends Controller
      */
     public function destroy(Kendaraan $kendaraan)
     {
+        if ($kendaraan->file) Storage::delete($kendaraan->file);
         $kendaraan->delete(); // Menghapus data berdasarkan model instance
     return redirect()->route('dashboard')->with('success', 'Data Deleted successfully!');
     }

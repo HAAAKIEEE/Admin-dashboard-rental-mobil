@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,17 +17,25 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [KendaraanController::class, 'index'])->name('dashboard');
     Route::get('/kendaraan', [KendaraanController::class, 'index'])->name('dashboard');
-    
-    Route::get('/create', [KendaraanController::class, 'create']);
-    Route::post('/store', [KendaraanController::class, 'store'])->name('store');
-    Route::delete('/{kendaraan}', [KendaraanController::class, 'destroy']) ;
-    Route::get('/{kendaraan}/edit', [KendaraanController::class, 'edit'])->name('edit-kendaraan');
-    
-    Route::put('/{kendaraan}', [KendaraanController::class, 'update'])->name('edit-kendaraan');
-    
+
+    Route::middleware('can:crud post')->group(function () {
+        Route::get('/users', [UserController::class, 'index'])->name('users');
+        Route::get('/add-users', [UserController::class, 'create'])->name('add-users');
+        Route::post('/users', [UserController::class, 'store'])->name('store-users');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('edit-users');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('update-users');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('destroy-users');
+      
+        Route::get('/create', action: [KendaraanController::class, 'create']);
+        Route::post('/store', [KendaraanController::class, 'store'])->name('store');
+        Route::delete('/{kendaraan}', [KendaraanController::class, 'destroy']);
+        Route::get('/{kendaraan}/edit', [KendaraanController::class, 'edit'])->name('edit-kendaraan');
+        Route::put('/{kendaraan}', [KendaraanController::class, 'update'])->name('edit-kendaraan');
+    });
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
